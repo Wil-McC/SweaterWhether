@@ -1,19 +1,19 @@
 class Api::V1::ForecastController < ApplicationController
   def local_five_day
     loc = params[:location]
-    require "pry"; binding.pry
-    get_coords(loc)
+    lat_lng = get_coords(loc)
   end
 
   def coordinate_connection
     coordinate_connection ||= Faraday.new({
-      url: ENV['COORD_URL'],
-      key: ENV['COORD_KEY']
+      url: ENV['COORD_URL']
     })
   end
 
   def get_coords(loc)
-    coordinate_connection.get("/geocoding/v1/address?location=#{loc}")
+    res = coordinate_connection.get("/geocoding/v1/address?key=#{ENV['COORD_KEY']}&location=#{loc}")
+    data = JSON.parse(res.body, symbolize_names: true)
+    lat_lng_hash = data[:results][0][:locations][0][:latLng]
   end
 
   # def weather_connection
