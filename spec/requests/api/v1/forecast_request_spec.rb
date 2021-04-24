@@ -29,5 +29,16 @@ RSpec.describe 'the forecast request' do
         expect(forecast[:error]).to eq("Please provide a valid location")
       end
     end
+    it "returns error message when no location" do
+      VCR.use_cassette('no_location') do
+        get '/api/v1/forecast?location='
+        expect(response).to be_successful
+        forecast = JSON.parse(response.body, symbolize_names: true)
+
+        expect(forecast).to be_a(Hash)
+        expect(forecast.keys).to eq([:error])
+        expect(forecast[:error]).to eq("A valid location parameter is required")
+      end
+    end
   end
 end
