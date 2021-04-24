@@ -13,7 +13,52 @@ RSpec.describe 'the forecast request' do
         expect(forecast[:data].keys).to eq([:id, :type, :attributes])
         expect(forecast[:data][:id]).to eq(nil)
         expect(forecast[:data][:attributes].keys).to eq([:current_weather, :daily_weather, :hourly_weather])
-        expect(forecast[:data][:attributes][:current_weather].keys).to eq([:datetime, :sunrise, :sunset, :temperature, :feels_like, :humidity, :uvi, :visibility, :conditions, :icon])
+        # current_weather data tests
+        cw = forecast[:data][:attributes][:current_weather]
+        expect(cw.keys).to eq([:datetime, :sunrise, :sunset, :temperature, :feels_like, :humidity, :uvi, :visibility, :conditions, :icon])
+        expect(cw[:datetime]).to eq("2021-04-24T12:55:29.000-06:00")
+        expect(cw[:datetime]).to be_a(String)
+        expect(cw[:sunrise]).to eq("2021-04-24T06:08:57.000-06:00")
+        expect(cw[:sunrise]).to be_a(String)
+        expect(cw[:sunset]).to eq("2021-04-24T19:46:43.000-06:00")
+        expect(cw[:sunset]).to be_a(String)
+        expect(cw[:temperature]).to eq(58.33)
+        expect(cw[:temperature]).to be_a(Float)
+        expect(cw[:feels_like]).to eq(56.17)
+        expect(cw[:feels_like]).to be_a(Float)
+        expect(cw[:humidity]).to eq(49)
+        expect(cw[:humidity]).to be_an(Integer)
+        expect(cw[:uvi]).to eq(6.35)
+        expect(cw[:uvi]).to be_a(Float)
+        expect(cw[:visibility]).to eq(10000)
+        expect(cw[:visibility]).to be_an(Integer)
+        expect(cw[:conditions]).to eq('overcast clouds')
+        expect(cw[:conditions]).to be_a(String)
+        expect(cw[:icon]).to eq("04d")
+        expect(cw[:icon]).to be_a(String)
+        # daily_weather data tests
+        dw = forecast[:data][:attributes][:daily_weather]
+        expect(
+          dw.all? do |day|
+            day.keys == [:date, :sunrise, :sunset, :max_temp, :min_temp, :conditions, :icon]
+          end
+        ).to eq(true)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
+        # expect(dw)
       end
     end
   end
