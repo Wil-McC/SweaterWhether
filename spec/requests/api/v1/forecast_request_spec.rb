@@ -5,7 +5,7 @@ RSpec.describe 'the forecast request' do
     it 'returns payload with correct structure' do
       get '/api/v1/forecast?location=denver,co'
       expect(response).to be_successful
-      merchants = JSON.parse(response.body, symbolize_names: true)
+      forecast = JSON.parse(response.body, symbolize_names: true)
     end
   end
 end
