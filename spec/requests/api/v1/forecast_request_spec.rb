@@ -40,25 +40,37 @@ RSpec.describe 'the forecast request' do
         dw = forecast[:data][:attributes][:daily_weather]
         expect(
           dw.all? do |day|
+            day.class == Hash
+          end
+        ).to eq(true)
+        expect(
+          dw.all? do |day|
             day.keys == [:date, :sunrise, :sunset, :max_temp, :min_temp, :conditions, :icon]
           end
         ).to eq(true)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
-        # expect(dw)
+        expect(
+          dw.all? do |day|
+            day[:date].class == String
+            day[:sunrise].class == String
+            day[:sunset].class == String
+            day[:max_temp].class == Float
+            day[:min_temp].class == Float
+            day[:conditions].class == String
+            day[:icon].class == String
+          end
+        ).to eq(true)
+        # hourly_weather data tests
+        hw = forecast[:data][:attributes][:hourly_weather]
+        expect(
+          hw.all? do |h|
+            h.class == Hash
+            h.keys == [:time, :temperature, :conditions, :icon]
+            h[:time].class == String
+            h[:temperature].class == Float
+            h[:conditions].class == String
+            h[:icon].class == String
+          end
+        ).to eq(true)
       end
     end
   end
