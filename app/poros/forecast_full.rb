@@ -1,5 +1,8 @@
 class ForecastFull
-  attr_reader :id
+  attr_reader :id,
+              :current_weather,
+              :daily_weather,
+              :hourly_weather
 
   def initialize(data)
     @id              = nil
