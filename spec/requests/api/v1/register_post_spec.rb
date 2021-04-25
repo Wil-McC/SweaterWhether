@@ -14,6 +14,7 @@ RSpec.describe 'the registration post request' do
       post uri, headers: headers, params: body, as: :json
 
       expect(response).to be_successful
+      require "pry"; binding.pry
       expect(response.status).to eq(201)
       res = JSON.parse(response.body, symbolize_names: true)
 
