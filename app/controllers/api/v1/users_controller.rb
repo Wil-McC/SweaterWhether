@@ -3,7 +3,15 @@ class Api::V1::UsersController < ApplicationController
     new_user = User.new(user_attrs)
     if new_user.save
       render json: RegistrationSuccessSerializer.new(new_user), status: 201
+    else
+      error_parse(new_user.errors)
     end
+  end
+
+  def error_parse(error)
+    m = error.messages
+
+    render json: ({ error: m }), status: 400
   end
 
 
