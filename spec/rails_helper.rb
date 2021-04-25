@@ -79,4 +79,5 @@ VCR.configure do |config|
   config.hook_into :webmock
   config.filter_sensitive_data('<COORD_KEY>') { ENV['COORD_KEY'] }
   config.filter_sensitive_data('<WEATHER_KEY>') { ENV['WEATHER_KEY'] }
+  config.filter_sensitive_data('<IMAGE_KEY>') { ENV['IMAGE_KEY']}
 end
