@@ -7,11 +7,25 @@ class Api::V1::SalariesController < ApplicationController
     forecast = slim_weather(extended.current_weather)
 
     salaries = fetch_salaries(des)
-    require "pry"; binding.pry
+    sf = forecast_builder(des, forecast, salaries)
+
+    render json: SalaryForecastSerializer.new(sf)
+  end
+
+  def forecast_builder(des, forecast, salaries)
+    OpenStruct.new(
+      id: nil,
+      destination: des,
+      forecast: forecast,
+      salaries: salaries
+    )
   end
 
   def slim_weather(hash)
-
+    {
+      summary: hash[:conditions],
+      temperature: "#{hash[:temperature]} F"
+    }
   end
 
   def fetch_salaries(des)
