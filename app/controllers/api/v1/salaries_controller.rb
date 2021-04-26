@@ -2,14 +2,17 @@ class Api::V1::SalariesController < ApplicationController
   def salary_forecast
     des = params[:destination]
 
-    # lat_lng = GeoService.get_coords(des)
-    # extended = ForecastService.get_five_day(lat_lng[:lat], lat_lng[:lng])
-    # forecast = extended.current_weather
+    lat_lng = GeoService.get_coords(des)
+    extended = ForecastService.get_five_day(lat_lng[:lat], lat_lng[:lng])
+    forecast = slim_weather(extended.current_weather)
 
     salaries = fetch_salaries(des)
     require "pry"; binding.pry
   end
 
+  def slim_weather(hash)
+
+  end
 
   def fetch_salaries(des)
     res = ua_connection.get("/api/urban_areas/slug:#{des}/salaries")
