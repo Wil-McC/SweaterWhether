@@ -11,8 +11,10 @@ RSpec.describe 'the salary service' do
         job.class         == Hash
         job.keys          == [:title, :min, :max]
         job[:title].class == String
-        job[:min].class   == Float
-        job[:max].class   == Float
+        job[:min].class   == String
+        job[:min][0]      == '$'
+        job[:max].class   == String
+        job[:max][0]      == '$'
       end
     ).to eq(true)
   end
