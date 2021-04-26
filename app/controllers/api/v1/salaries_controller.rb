@@ -2,14 +2,17 @@ class Api::V1::SalariesController < ApplicationController
   def salary_forecast
     des = params[:destination]
 
+    salary_data = SalaryFacade.salary_forecast(des)
+    # facade \/
     lat_lng = GeoService.get_coords(des)
     extended = ForecastService.get_five_day(lat_lng[:lat], lat_lng[:lng])
     forecast = slim_weather(extended.current_weather)
 
     salaries = fetch_salaries(des)
     sf = forecast_builder(des, forecast, salaries)
-
-    render json: SalaryForecastSerializer.new(sf)
+    SalaryForecastSerializer.new(sf)
+    
+    render json: salary_data
   end
 
   def forecast_builder(des, forecast, salaries)
