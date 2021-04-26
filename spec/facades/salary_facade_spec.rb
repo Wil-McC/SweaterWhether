@@ -29,4 +29,17 @@ RSpec.describe 'the salary facade' do
       end
     ).to eq(true)
   end
+  it "slim_weather class method" do
+    des = 'denver'
+    lat_lng = GeoService.get_coords(des)
+    extended = ForecastService.get_five_day(lat_lng[:lat], lat_lng[:lng])
+
+    slim = SalaryFacade.slim_weather(extended.current_weather)
+
+    expect(slim).to be_a(Hash)
+    expect(slim.keys).to eq([:summary, :temperature])
+    expect(slim[:summary]).to be_a(String)
+    expect(slim[:temperature]).to be_a(String)
+    expect(slim[:temperature][-1]).to eq('F')
+  end
 end
