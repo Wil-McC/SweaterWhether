@@ -7,7 +7,6 @@ SweaterWhether offers users location-based weather information regarding their r
 
 - [Getting Started](#getting-started)
 - [Running the tests](#running-the-tests)
-- [Service Oriented Architecture](#service-oriented-architecture)
 - [Other Repos](#other-repos)
 - [Built With](#built-with)
 - [Contributing](#contributing)
@@ -30,7 +29,7 @@ To run this application you will need Ruby 2.5.3 and Rails 5.2.5
 
 - Install the gem packages  
   - `bundle install`
-- Generate your local `application.yml` file to store the api key and confirm it was added to your `.gitignore`
+- Generate your local `application.yml` file to store the api keys and confirm it was added to your `.gitignore`
   - `bundle exec figaro install`
 
 ## Running the tests
@@ -45,32 +44,26 @@ RSpec testing suite is utilized for testing this application.
 
 ##### Climate Data
 - **Required** query params:
-  - `vintage`
-  - `region`
+  - `location`
 
-`GET https://weather-service-sinatra.herokuapp.com/api/v1/climate_data?vintage={year}&region={region}`
+`GET /api/v1/forecast?location={loc}`
 
 ```json
-{data: {
-    "id": nil,
-    "type": "climate",
+{
+  data: {
+    "id": null,
+    "type": "forecast",
     "attributes": {
-      "temp": #{temp(integer)},
-      "precip": #{precip(float)},
-      "vintage": #{vintage(integer)},
-      "region": #{region(string)},
-      "start_date": #{date(string)},
-      "end_date": #{date(string)}
+      "current_weather": { },
+      "daily_weather": { },
+      "hourly_weather": { }
     }
   }
 }
 ```
 
-###### Formats
-  - `date` strings are formatted as `YYYY-MM-DD`
-
 ## Built With
-- [Sinatra](https://github.com/sinatra/sinatra)
+
 - [Ruby](https://www.ruby-lang.org/en/)
 - [RSpec](https://github.com/rspec/rspec)
 - [Rbenv](https://github.com/rbenv/rbenv)
@@ -85,30 +78,17 @@ Please follow the steps below and know that all contributions you make are **gre
 5. Open a Pull Request
 
 ## Versioning
-- Sinatra 2.1.0
+- Rails 5.2.5
 - Ruby 2.5.3
 - RSpec 3.10.0
 - Rbev 1.1.2
 
-## Authors
-- **Adam Bowers**
-| [GitHub](https://github.com/Pragmaticpraxis37) |
-  [LinkedIn](https://www.linkedin.com/in/adam-bowers-06a871209/)
-- **Alex Schwartz**
-| [GitHub](https://github.com/aschwartz1) |
-  [LinkedIn](https://www.linkedin.com/in/alex-s-77659758/)
-- **Diana Buffone**
-| [GitHub](https://github.com/Diana20920) |
-  [LinkedIn](https://www.linkedin.com/in/dianabuffone/)
-- **Katy La Tour**
-| [GitHub](https://github.com/klatour324) |
-  [LinkedIn](https://www.linkedin.com/in/klatour324/)
-- **Tommy Nieuwenhuis**
-|  [GitHub](https://github.com/tsnieuwen) |
-    [LinkedIn](https://www.linkedin.com/in/thomasnieuwenhuis/)
-- **Trevor Suter**
-|    [GitHub](https://github.com/trevorsuter) |
-    [LinkedIn](https://www.linkedin.com/in/trevor-suter-216207203/)
+## Author
+
 - **Wil McCauley**
 |    [GitHub](https://github.com/wil-mcc) |
     [LinkedIn](https://www.linkedin.com/in/wil-mccauley/)
+    
+## Acknowledgements
+- Thanks to [Pexels Image Search API](https://www.pexels.com/) for background image endpoint
+- Thanks to [OpenWeather OneCall API](https://openweathermap.org/api/one-call-api) for weather forecast endpoints
