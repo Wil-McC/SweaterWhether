@@ -6,5 +6,8 @@ RSpec.describe 'the salary request' do
 
     expect(response).to be_successful
     forecast = JSON.parse(response.body, symbolize_names: true)
+
+    expect(res.keys).to eq([:data])
+    expect(res[:data].keys).to eq([:id, :type, :attributes])
   end
 end
