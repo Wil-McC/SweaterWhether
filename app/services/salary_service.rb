@@ -14,8 +14,8 @@ class SalaryService
       jobs.each_with_object({}) do |job, acc|
         if job[:job][:title] == role
           acc[:title] = job[:job][:title]
-          acc[:min]   = job[:salary_percentiles][:percentile_25].round(2)
-          acc[:max]   = job[:salary_percentiles][:percentile_75].round(2)
+          acc[:min]   = "$#{job[:salary_percentiles][:percentile_25].round(2)}"
+          acc[:max]   = "$#{job[:salary_percentiles][:percentile_75].round(2)}"
         end
       end
     end

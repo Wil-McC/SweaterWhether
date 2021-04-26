@@ -18,5 +18,8 @@ RSpec.describe 'the salary request' do
     expect(res[:data][:attributes][:salaries]).to be_an(Array)
     expect(res[:data][:attributes][:salaries].first).to be_a(Hash)
     expect(res[:data][:attributes][:salaries].first.keys).to eq([:title, :min, :max])
+    expect(res[:data][:attributes][:salaries].first[:title]).to be_a(String)
+    expect(res[:data][:attributes][:salaries].first[:min]).to be_a(String)
+    expect(res[:data][:attributes][:salaries].first[:max]).to be_a(String)
   end
 end
