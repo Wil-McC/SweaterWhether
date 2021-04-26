@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get '/backgrounds', to: 'images#skyline_image'
       resources :users, only: [:create]
       post '/sessions', to: 'sessions#login'
+      post '/road_trip', to: 'trips#arrival'
     end
   end
 end
