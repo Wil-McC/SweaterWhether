@@ -1,7 +1,7 @@
 # SweaterWhether
 
 ## About this Project
-SweaterWhether offers users location-based weather information regarding their road trip destination.
+SweaterWhether exposes several endpoints related to weather forecasting and road trip length. This app is built to support a hypothetical front-end team who have provided API contracts and specs.
 
 ## Acknowledgements
 - Thanks to [Pexels Image Search API](https://www.pexels.com/) for background image endpoint
