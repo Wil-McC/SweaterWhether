@@ -43,6 +43,17 @@ RSpec.describe 'the road trip request' do
     end
   end
   describe 'sad path' do
+    before :each do
+      uri = api_v1_users_path
+      body = {
+              "email": "meep@beep.com",
+              "password": "zoomer",
+              "password_confirmation": "zoomer"
+              }
+      headers = {'CONTENT_TYPE': 'application/json'}
+
+      post uri, headers: headers, params: body, as: :json
+    end
     it 'returns error when key is invalid' do
       uri = api_v1_road_trip_path
       body = {
@@ -63,16 +74,6 @@ RSpec.describe 'the road trip request' do
     end
     it 'returns payload with empty weather if route invalid' do
       VCR.use_cassette('road_trip_sad') do
-        uri = api_v1_users_path
-        body = {
-                "email": "meep@beep.com",
-                "password": "zoomer",
-                "password_confirmation": "zoomer"
-                }
-        headers = {'CONTENT_TYPE': 'application/json'}
-
-        post uri, headers: headers, params: body, as: :json
-
         user = User.find_by(email: "meep@beep.com")
         k = user.api_key
         uri = api_v1_road_trip_path
@@ -100,6 +101,23 @@ RSpec.describe 'the road trip request' do
         expect(res[:data][:attributes][:travel_time]).to eq("impossible")
         expect(res[:data][:attributes][:weather_at_eta]).to eq({})
       end
+    end
+    it "returns an error message if one or both trip points are empty" do
+      user = User.find_by(email: "meep@beep.com")
+      k = user.api_key
+      uri = api_v1_road_trip_path
+      body = {
+              "origin": "",
+              "destination": "",
+              "api_key": "#{k}"
+              }
+      headers = {'CONTENT_TYPE': 'application/json'}
+      post uri, headers: headers, params: body, as: :json
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+
+      res = JSON.parse(response.body, symbolize_names: true)
     end
   end
 end

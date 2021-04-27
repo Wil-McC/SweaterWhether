@@ -1,9 +1,9 @@
 class ImageService
   def self.image_search(location)
+    location = location.split(',').first if location.include?(',')
     res = image_connection.get('/v1/search') do |req|
-      req.params['query'] = location + ' skyline'
+      req.params['query'] = location + ' downtown'
       req.params['per_page'] = 1
-      req.params['orientation'] = 'square'
     end
 
     data = JSON.parse(res.body, symbolize_names: true)
