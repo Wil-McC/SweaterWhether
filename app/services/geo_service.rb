@@ -22,12 +22,27 @@ class GeoService
 
     data = JSON.parse(res.body, symbolize_names: true)
 
-    hours = data[:time][1] / 3600.0
-    dest_coords = data[:locations][1][:displayLatLng]
-    dest_coords[:hrs] = hours
-    dest_coords
+    route_parse(data)
   end
 
+  def self.route_parse(data)
+    if data[:locations]
+      hours = data[:time][1] / 3600.0
+      dest_coords = data[:locations][1][:displayLatLng]
+      dest_coords[:hrs_raw] = hours
+      dest_coords[:hrs] = human_time(hours)
+      dest_coords
+    elsif data[:route][:routeError]
+      'impossible'
+    end
+  end
+
+  def self.human_time(hours_float)
+    n = hours_float
+    hrs = n.floor
+    mins = ((n - n.to_i) * 60).floor
+    "#{hrs} hours, #{mins} minutes"
+  end
 
   def self.coordinate_connection
     coordinate_connection ||= Faraday.new({

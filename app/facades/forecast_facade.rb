@@ -9,4 +9,13 @@ class ForecastFacade
       ForecastFullSerializer.new(forecast)
     end
   end
+
+  def self.eta_weather(hours_hash)
+    lat = hours_hash[:lat]
+    lon = hours_hash[:lng]
+    round_hour= hours_hash[:hrs_raw].floor
+
+    forecast = ForecastService.forty_eight(lat, lon)
+    forecast[round_hour]
+  end
 end

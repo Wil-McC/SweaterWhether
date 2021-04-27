@@ -7,8 +7,9 @@ class Api::V1::TripsController < ApplicationController
       dest = string_cleaner(trip_info[:destination])
 
       hours = travel_time(orig, dest)
-      # ((n - n.to_i) * 60).floor
-      # forecast = future_weather(dest, hours)
+      # if hours == 'impossible' forecast = {}, skip below
+      forecast = future_weather(hours)
+      require "pry"; binding.pry
       # a = ArrivalCast.new(hours, forecast)
       # render json: ArrivalCastSerializer.new(a)
     else
@@ -18,6 +19,10 @@ class Api::V1::TripsController < ApplicationController
 
   def travel_time(orig, dest)
     GeoService.travel_time(orig, dest)
+  end
+
+  def future_weather(hours)
+    ForecastFacade.eta_weather(hours)
   end
 
   def string_cleaner(str)
