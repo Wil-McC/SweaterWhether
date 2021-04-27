@@ -43,11 +43,18 @@ RSpec.describe 'the geo service' do
       end
     end
     describe 'travel time method' do
-      it 'returns impossible if route is valid' do
+      it 'returns impossible if route is invalid' do
         VCR.use_cassette('travel_time_sad') do
           res = GeoService.travel_time('denver co', 'honolulu hi')
 
           expect(res).to be_a(String)
+          expect(res).to eq('impossible')
+        end
+      end
+      it 'returns impossible if route time is zero' do
+        VCR.use_cassette('bad_trip') do
+          res = GeoService.travel_time('zorgabork', 'xyloxorb')
+
           expect(res).to eq('impossible')
         end
       end

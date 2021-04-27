@@ -26,13 +26,13 @@ class GeoService
   end
 
   def self.route_parse(data)
-    if data[:locations]
+    if data[:locations] && data[:time][1] > 0
       hours = data[:time][1] / 3600.0
       dest_coords = data[:locations][1][:displayLatLng]
       dest_coords[:hrs_raw] = hours
       dest_coords[:hrs] = human_time(hours)
       dest_coords
-    elsif data[:route][:routeError]
+    elsif data[:route] || data[:time][1] == 0
       'impossible'
     end
   end
