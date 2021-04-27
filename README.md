@@ -11,16 +11,13 @@ SweaterWhether offers users location-based weather information regarding their r
 
 - [Getting Started](#getting-started)
 - [Running the tests](#running-the-tests)
-- [Other Repos](#other-repos)
 - [Built With](#built-with)
-- [Versioning](#versioning)
 - [Authors](#authors)
-- [Acknowledgments](#acknowledgments)
+
 
 ## Getting Started
 
 To get the web application running, please fork and clone down the repo.
-
 
 `git clone <your@github.account:SweaterWhether.git>`
 
@@ -200,7 +197,7 @@ RSpec testing suite is utilized for testing this application.
     }
  ```
 
-`POST /api/v1/users
+`POST /api/v1/users`
 
 ```json
 {
@@ -224,7 +221,7 @@ RSpec testing suite is utilized for testing this application.
     }
  ```
 
-`POST /api/v1/sessions
+`POST /api/v1/sessions`
 
 ```json
 {
@@ -249,7 +246,7 @@ RSpec testing suite is utilized for testing this application.
     }
  ```
 
-`POST /api/v1/sessions
+`POST /api/v1/sessions`
 
 ```json
 {
