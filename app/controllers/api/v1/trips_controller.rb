@@ -7,6 +7,7 @@ class Api::V1::TripsController < ApplicationController
       dest = string_cleaner(trip_info[:destination])
 
       hours = travel_time(orig, dest)
+      # ((n - n.to_i) * 60).floor
       # forecast = future_weather(dest, hours)
       # a = ArrivalCast.new(hours, forecast)
       # render json: ArrivalCastSerializer.new(a)

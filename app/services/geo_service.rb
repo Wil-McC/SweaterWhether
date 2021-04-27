@@ -21,6 +21,11 @@ class GeoService
     end
 
     data = JSON.parse(res.body, symbolize_names: true)
+
+    hours = data[:time][1] / 3600.0
+    dest_coords = data[:locations][1][:displayLatLng]
+    dest_coords[:hrs] = hours
+    dest_coords
   end
 
 

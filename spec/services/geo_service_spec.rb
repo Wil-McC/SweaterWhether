@@ -11,6 +11,19 @@ RSpec.describe 'the geo service' do
         expect(res[:lng]).to eq(-105.216019)
       end
     end
+    describe 'travel time method' do
+      it 'returns hours if route is valid' do
+        VCR.use_cassette('travel_time_happy') do
+          res = GeoService.travel_time('denver co', 'lander wy')
+
+          expect(res).to be_a(Hash)
+          expect(res.keys).to eq([:lng, :lat, :hrs])
+          expect(res[:lng]).to be_a(Float)
+          expect(res[:lat]).to be_a(Float)
+          expect(res[:hrs]).to be_a(Float)
+        end
+      end
+    end
   end
   describe 'sad path' do
     it 'returns default coords on bad location' do
