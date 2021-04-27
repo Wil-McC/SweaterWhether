@@ -43,7 +43,7 @@ RSpec.describe 'the geo service' do
       end
     end
     describe 'travel time method' do
-      it 'returns hours if route is valid' do
+      it 'returns impossible if route is valid' do
         VCR.use_cassette('travel_time_sad') do
           res = GeoService.travel_time('denver co', 'honolulu hi')
 
