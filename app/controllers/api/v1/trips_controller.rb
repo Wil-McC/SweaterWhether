@@ -12,8 +12,6 @@ class Api::V1::TripsController < ApplicationController
       render json: ({ error: 'Origin and destination city must be provided' }), status: 400
     elsif user == nil
       render json: ({ error: 'Invalid key provided' }), status: 401
-    else
-      render json: ({ error: 'Something went wrong' }), status: 400
     end
   end
 

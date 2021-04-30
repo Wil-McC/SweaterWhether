@@ -12,7 +12,7 @@ class TripFacade
       length   = hours[:hrs]
     end
 
-    output = trip_struct(origin, destination, length, forecast)
+    trip_struct(origin, destination, length, forecast)
   end
 
   def self.travel_time(orig, dest)
